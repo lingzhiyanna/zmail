@@ -190,6 +190,22 @@ app.post('/api/mailboxes', async (c) => {
   }
 });
 
+// 获取邮箱列表
+app.get('/api/mailboxes', async (c) => {
+  try {
+    const mailboxes = await getMailboxs(c.env.DB);
+    
+    return c.json({ success: true, mailboxes });
+  } catch (error) {
+    console.error('获取邮件列表失败:', error);
+    return c.json({ 
+      success: false, 
+      error: '获取邮件列表失败',
+      message: error instanceof Error ? error.message : String(error)
+    }, 500);
+  }
+});
+
 // 获取邮箱信息
 app.get('/api/mailboxes/:address', async (c) => {
   try {
