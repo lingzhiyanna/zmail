@@ -4,6 +4,7 @@ import { Env, SendEmailParams, ParsedEmail } from './types';
 import { 
   createMailbox, 
   getMailbox, 
+  getMailboxs,
   deleteMailbox, 
   getEmails, 
   getEmail, 
