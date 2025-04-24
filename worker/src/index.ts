@@ -53,16 +53,16 @@ export default {
   
   // 定时任务 - 每小时清理过期邮箱以及过期邮件和已被阅读的邮件
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
-    try {
-      await initializeDatabase(env.DB);
-      const deleted = await cleanupExpiredMailboxes(env.DB);
-      console.log(`已清理 ${deleted} 个过期邮箱`);
-      const deletedMail = await cleanupExpiredMails(env.DB);
-      console.log(`已清理 ${deletedMail} 个过期邮件`);
-      const deletedReadMail = await cleanupReadMails(env.DB);
-      console.log(`已清理 ${deletedReadMail} 个已被阅读的邮件`);
-    } catch (error) {
-      console.error('定时任务执行失败:', error);
-    }
+    // try {
+    //   await initializeDatabase(env.DB);
+    //   const deleted = await cleanupExpiredMailboxes(env.DB);
+    //   console.log(`已清理 ${deleted} 个过期邮箱`);
+    //   const deletedMail = await cleanupExpiredMails(env.DB);
+    //   console.log(`已清理 ${deletedMail} 个过期邮件`);
+    //   const deletedReadMail = await cleanupReadMails(env.DB);
+    //   console.log(`已清理 ${deletedReadMail} 个已被阅读的邮件`);
+    // } catch (error) {
+    //   console.error('定时任务执行失败:', error);
+    // }
   },
 };
