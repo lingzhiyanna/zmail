@@ -101,6 +101,31 @@ export async function getMailbox(db: D1Database, address: string): Promise<Mailb
   };
 }
 
+
+/**
+ * 获取邮箱列表
+ * @param db 数据库实例
+ * @returns 邮箱信息
+ */
+export async function getMailboxs(db: D1Database): Promise<Mailbox | null> {
+  const now = getCurrentTimestamp();
+  const results = await db.prepare(`SELECT id, address, created_at, expires_at, ip_address, last_accessed FROM mailboxes`).all();
+  
+  if (!results) return null;
+  
+  // 更新最后访问时间
+  // await db.prepare(`UPDATE mailboxes SET last_accessed = ? WHERE id = ?`).bind(now, result.id).run();
+  
+  return results.results.map(result => ({
+    id: result.id as string,
+    address: result.address as string,
+    createdAt: result.created_at as number,
+    expiresAt: result.expires_at as number,
+    ipAddress: result.ip_address as string,
+    lastAccessed: now,
+  }));
+}
+
 /**
  * 获取用户的所有邮箱
  * @param db 数据库实例
